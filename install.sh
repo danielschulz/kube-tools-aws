@@ -14,7 +14,7 @@ kubectl version --client
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | sh
 
 # install S3 plugin for Helm
-helm plugin install https://github.com/hypnoglow/helm-s3.git --version $HELM_S3_PLUGIN_VERSION
+helm plugin install https://github.com/hypnoglow/helm-s3.git --version "${HELM_S3_PLUGIN_VERSION}"
 
 # aws-iam-authenticator
 # https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
@@ -24,16 +24,6 @@ openssl sha1 -sha256 aws-iam-authenticator
 chmod +x ./aws-iam-authenticator
 mv aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
 aws-iam-authenticator help
-
-# Digital Ocean CLI (doctl)
-wget https://github.com/digitalocean/doctl/releases/download/v1.64.0/doctl-1.64.0-linux-amd64.tar.gz
-tar xf ./doctl-1.64.0-linux-amd64.tar.gz
-mv ./doctl /usr/local/bin
-rm ./doctl-1.64.0-linux-amd64.tar.gz
-doctl help
-
-# install YAML tools
-pip install yamllint yq
 
 # cleanup
 rm /var/cache/apk/*

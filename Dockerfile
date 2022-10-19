@@ -1,16 +1,16 @@
-FROM alpine:3.14
+FROM alpine:3.16.2
 
 # https://github.com/hypnoglow/helm-s3
-ENV HELM_S3_PLUGIN_VERSION "0.10.0"
+ENV HELM_S3_PLUGIN_VERSION "0.14.0"
 
 # set some defaults
-ENV AWS_DEFAULT_REGION "us-east-1"
+ENV AWS_DEFAULT_REGION "eu-central-1"
 
 RUN apk --no-cache upgrade
 RUN apk add --update bash ca-certificates git python3 jq
 
 # https://github.com/sgerrand/alpine-pkg-glibc/releases
-ENV GLIBC_VER=2.33-r0
+ENV GLIBC_VER=2.35-r0
 
 # install glibc compatibility for alpine and aws-cli v2
 # https://github.com/aws/aws-cli/issues/4685#issuecomment-615872019
@@ -20,7 +20,7 @@ RUN apk --no-cache add \
     && curl -sL https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub -o /etc/apk/keys/sgerrand.rsa.pub \
     && curl -sLO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-${GLIBC_VER}.apk \
     && curl -sLO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VER}/glibc-bin-${GLIBC_VER}.apk \
-    && apk add --no-cache \
+    && apk add --no-cache --force-overwrite \
         glibc-${GLIBC_VER}.apk \
         glibc-bin-${GLIBC_VER}.apk \
     && curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
