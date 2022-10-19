@@ -6,8 +6,8 @@ ENV HELM_S3_PLUGIN_VERSION "0.14.0"
 # set some defaults
 ENV AWS_DEFAULT_REGION "eu-central-1"
 
-RUN apk --no-cache upgrade
-RUN apk add --update bash ca-certificates git python3 jq
+RUN apk --no-cache upgrade \
+    && apk add --update bash ca-certificates git python3 jq
 
 # https://github.com/sgerrand/alpine-pkg-glibc/releases
 ENV GLIBC_VER=2.35-r0
@@ -39,7 +39,5 @@ RUN apk --no-cache add \
     && rm glibc-bin-${GLIBC_VER}.apk \
     && rm -rf /var/cache/apk/*
 
-COPY install.sh /opt/install.sh
-RUN /opt/install.sh
 
 CMD bash
